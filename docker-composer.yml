@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:p0Stpw14@db:5432/evaluation_db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0Stpw14
+      POSTGRES_DB: evaluation_db
+    volumes:
+      - C:\Users\max.thomas\Documents\05_Publikationen\09_Keywords\keyword_evaluation:/var/lib/postgresql/data
