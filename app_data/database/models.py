@@ -2,7 +2,7 @@
 Here the data models for the interaction with the database are stored.
 
 """
-from app import db
+from .. import db
 
 
 class User(db.Model):
@@ -49,11 +49,11 @@ class KeywordGenCourse(db.Model):
     __tablename__ = 'keywords_gen_courses'
 
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), primary_key=True)
-    keyword_id = db.Column(db.Integer, db.ForeignKey('keyword_gen.id'), primary_key=True)
+    keyword_id = db.Column(db.Integer, db.ForeignKey('keywords_gen.id'), primary_key=True)
 
 
 class KeywordManCourse(db.Model):
     __tablename__ = 'keywords_man_courses'
 
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), primary_key=True)
-    keyword_id = db.Column(db.Integer, db.ForeignKey('keyword_man.id'), primary_key=True)
+    keyword_id = db.Column(db.Integer, db.ForeignKey('keywords_man.id'), primary_key=True)
