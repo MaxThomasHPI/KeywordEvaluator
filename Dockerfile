@@ -14,6 +14,6 @@ EXPOSE 5000
 
 ENV FLASK_APP=app.py
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "db", "upgrade", "&&", "flask", "run", "--host=0.0.0.0"]
 
 LABEL authors="max"
