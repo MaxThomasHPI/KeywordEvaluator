@@ -2,7 +2,6 @@
 Here the data models for the interaction with the database are stored.
 
 """
-
 from app import db
 
 
