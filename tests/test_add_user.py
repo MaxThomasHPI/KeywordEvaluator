@@ -1,5 +1,4 @@
 import requests
-from flask import jsonify
 
 url = "http://127.0.0.1:5000/add_user"
 user1 = {"age_group": "<20", "gender": "male", "occupation": "student"}
