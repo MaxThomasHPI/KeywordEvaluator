@@ -35,14 +35,14 @@ class KeywordGen(db.Model):
     __tablename__ = 'keywords_gen'
 
     id = db.Column(db.Integer, primary_key=True)
-    keyword = db.Column(db.String(255))
+    keyword = db.Column(db.String(255), unique=True)
 
 
 class KeywordMan(db.Model):
     __tablename__ = 'keywords_man'
 
     id = db.Column(db.Integer, primary_key=True)
-    keyword = db.Column
+    keyword = db.Column(db.String(255), unique=True)
 
 
 class KeywordGenCourse(db.Model):
