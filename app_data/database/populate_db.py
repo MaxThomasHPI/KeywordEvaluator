@@ -8,7 +8,9 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    path = os.path.join(os.path.realpath(__file__), "../courses_data/manuel_vs_generated_including_descriptions_fixed.csv")
+    path = os.path.dirname(os.path.realpath(__file__))
+    path = os.path.join(path, "courses_data", "manuel_vs_generated_including_descriptions_fixed.csv")
+    path = os.path.abspath(path)
 
     with open(path, 'r', encoding='utf-8') as f:
         data = f.read()
