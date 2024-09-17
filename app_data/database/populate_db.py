@@ -1,6 +1,7 @@
 import os
 from .. import db, create_app
 from .models import Course, KeywordGen, KeywordMan, KeywordGenCourse, KeywordManCourse
+from ..helper_functions import helper
 
 app = create_app()
 
@@ -21,7 +22,7 @@ with app.app_context():
         line = line.split(',')
 
         title = line[4]
-        description = line[7]
+        description = helper.prepare_descriptions_for_database(line)
 
         course = Course(title=title, description=description)
 
