@@ -1,9 +1,7 @@
 function clearContainer(container) {
 
-    if(container.childNodes){
-        container.childNodes.forEach(node => {
-            container.removeChild(node);
-        });
+    while (container.firstChild){
+        container.removeChild(container.firstChild);
     }
 }
 

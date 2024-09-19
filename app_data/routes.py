@@ -1,13 +1,13 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, jsonify
 from app_data.services.users import user_management
 from app_data.services.web_site_services import website_builder
+from app_data.services.courses import course_management
 
 main = Blueprint('main', __name__)
 
 
 @main.route('/')
 def initialize():
-    #return "Initialized!"
     return render_template("index.html")
 
 
@@ -18,6 +18,13 @@ def get_introduction_text():
 
 @main.route('/add_user', methods=["POST"])
 def add_user():
-    user_management.add_user(request.json)
+    user_id = user_management.add_user(request.json)
+    response = jsonify({"Status": "User_ID cookie has been set!"})
+    response.set_cookie("user_id", str(user_id))
+    return response
 
-    return "Success!"
+
+@main.route('/get_next_course')
+def get_next_course():
+    user_id = request.cookies.get('user_id')
+    return jsonify(course_management.select_course_for_user(user_id))

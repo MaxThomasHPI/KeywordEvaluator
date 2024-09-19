@@ -1,3 +1,6 @@
+import {getNextCourse} from "../dataService/courseData.js";
+import {createNewUser} from "../dataService/userData.js";
+
 export function buildHeadline() {
     const mainContainer = document.getElementById('main_container');
 
@@ -37,11 +40,10 @@ export function buildIntroductionQuestionnaire() {
 
     const containerAge = document.createElement('div');
     containerAge.className = 'col-4';
-    //containerAge.innerHTML = "<h4 class='text-center'>Age Group</h4>";
     containerAge.innerHTML = "<h4>Age Group</h4>";
 
     const ageGroups = ["<20", "20-29", "30-39", "40-49", "50-59", "60-69", ">70"];
-    containerAge.appendChild(buildDropdown(ageGroups, "Select an age group"));
+    containerAge.appendChild(buildDropdown('ageGroups', ageGroups, "Select an age group"));
 
     questionnaireMainContainer.appendChild(containerAge);
 
@@ -51,7 +53,7 @@ export function buildIntroductionQuestionnaire() {
     containerGender.innerHTML = "<h4>Gender</h4>";
 
     const genders = ["male", "female", "diverse"];
-    containerGender.appendChild(buildDropdown(genders, "Select a gender"));
+    containerGender.appendChild(buildDropdown('genders', genders, "Select a gender"));
 
     questionnaireMainContainer.appendChild(containerGender);
 
@@ -62,18 +64,19 @@ export function buildIntroductionQuestionnaire() {
     questionnaireMainContainer.appendChild(containerOccupation);
 
     const occupations = ["student", "teacher", "professional", "other", "academic researcher"];
-    containerOccupation.appendChild(buildDropdown(occupations, "Select an occupation"));
+    containerOccupation.appendChild(buildDropdown('occupations', occupations, "Select an occupation"));
 
     document.getElementById('main_container').appendChild(questionnaireMainContainer);
 
 }
 
-function buildDropdown(values, startText) {
+function buildDropdown(id, values, startText) {
     const dropdownContainer = document.createElement('div');
     dropdownContainer.className = "btn-group";
 
     const dropdownSelect = document.createElement('select');
     dropdownSelect.className = "form-select-lg mb-3";
+    dropdownSelect.id = id;
 
     let selection = document.createElement('option');
     selection.textContent = startText;
@@ -105,6 +108,7 @@ export function buildStartEvaluationPanel() {
     button.style = "width: 400px;";
     button.type = "button";
     button.textContent = "Start with the evaluation";
+    button.onclick = startEvaluation;
 
     subContainer.appendChild(button);
     container.appendChild(subContainer);
@@ -116,4 +120,9 @@ export function buildStartEvaluationPanel() {
     container.appendChild(text);
 
     document.getElementById('main_container').appendChild(container);
+}
+
+async function startEvaluation() {
+    await createNewUser();
+    getNextCourse();
 }

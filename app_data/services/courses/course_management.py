@@ -44,6 +44,12 @@ def gather_course_information(course):
     }
 
 
+def select_course_for_user(user_id):
+    course = assign_course_to_user(user_id)
+
+    return gather_course_information(course)
+
+
 def add_user_choice_to_course(course_id, choice):
     course = db.session.query(models.Course).filter(models.Course.id == course_id)
 
