@@ -37,5 +37,8 @@ def prepare_descriptions_for_database(csv_row):
         # repeated
         temp = temp.replace("  ", " ")
 
+    if temp == '':
+        temp = None
+
     return temp
 
