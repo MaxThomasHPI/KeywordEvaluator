@@ -1,3 +1,7 @@
+import {getNextCourse, set_choice} from "../dataService/courseData.js";
+
+let course_id;
+
 function clearContainer(container) {
 
     while (container.firstChild){
@@ -6,6 +10,8 @@ function clearContainer(container) {
 }
 
 export function createEvaluationSite(courseData){
+    course_id = courseData.courseID;
+
     const mainContainer = document.getElementById('main_container');
 
     clearContainer(mainContainer);
@@ -50,7 +56,7 @@ function buildKeywordLists(courseData) {
     const container = document.createElement('div');
     container.className = "row";
 
-    const tags = ["genKeywords", "manKeywords"]
+    const tags = ["gen", "man"];
 
     const left_index = Math.floor(Math.random()*2);
     let right_index;
@@ -61,8 +67,8 @@ function buildKeywordLists(courseData) {
         right_index = 0;
     }
 
-    container.appendChild(buildKeywordList(courseData[tags[left_index]], left_index));
-    container.appendChild(buildKeywordList(courseData[tags[right_index]], right_index));
+    container.appendChild(buildKeywordList(courseData[tags[left_index]], tags[left_index]));
+    container.appendChild(buildKeywordList(courseData[tags[right_index]], tags[right_index]));
 
     return container;
 }
@@ -88,9 +94,16 @@ function buildKeywordList(keywords, tag) {
     choiceButton.className = 'btn-lg';
     choiceButton.textContent = "This list is better!";
     choiceButton.id = tag;
+    choiceButton.onclick = function () {
+        set_choice_and_move_on(tag);
+    }
 
     buttonContainer.appendChild(choiceButton);
 
     return container;
 }
 
+function set_choice_and_move_on(tag) {
+    set_choice(course_id, tag);
+    getNextCourse();
+}

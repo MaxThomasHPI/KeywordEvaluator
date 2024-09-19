@@ -39,8 +39,8 @@ def gather_course_information(course):
         "courseID": course_id,
         "title": title,
         "description": description,
-        "genKeywords": gen_keywords,
-        "manKeywords": man_keywords
+        "gen": gen_keywords,
+        "man": man_keywords
     }
 
 
@@ -51,7 +51,7 @@ def select_course_for_user(user_id):
 
 
 def add_user_choice_to_course(course_id, choice):
-    course = db.session.query(models.Course).filter(models.Course.id == course_id)
+    course = db.session.query(models.Course).filter(models.Course.id == course_id).first()
 
     course.user_choice = choice
     course.end = datetime.now()

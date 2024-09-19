@@ -28,3 +28,11 @@ def add_user():
 def get_next_course():
     user_id = request.cookies.get('user_id')
     return jsonify(course_management.select_course_for_user(user_id))
+
+
+@main.route('/set_user_choice', methods=["POST"])
+def set_user_choice():
+    course_id = request.json.get("course_id")
+    choice = request.json.get("user_choice")
+    course_management.add_user_choice_to_course(course_id, choice)
+    return "Success!"
