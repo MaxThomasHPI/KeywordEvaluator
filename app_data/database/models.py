@@ -24,8 +24,8 @@ class Course(db.Model):
     description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     user_choice = db.Column(db.String(10), nullable=True)
-    start = db.Column(db.DateTime, nullable=True)
-    end = db.Column(db.DateTime, nullable=True)
+    start_time = db.Column(db.DateTime, nullable=True)
+    end_time = db.Column(db.DateTime, nullable=True)
 
     keywords_gen = db.relationship('KeywordGen', secondary='keywords_gen_courses', backref='courses', lazy=True)
     keywords_man = db.relationship('KeywordMan', secondary='keywords_man_courses', backref='courses', lazy=True)

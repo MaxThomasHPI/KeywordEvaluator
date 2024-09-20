@@ -13,7 +13,7 @@ def assign_course_to_user(user_id):
     course = pick_random_course()
 
     course.user_id = user_id
-    course.start = datetime.now()
+    course.start_time = datetime.now()
 
     db.session.commit()
 
@@ -54,6 +54,6 @@ def add_user_choice_to_course(course_id, choice):
     course = db.session.query(models.Course).filter(models.Course.id == course_id).first()
 
     course.user_choice = choice
-    course.end = datetime.now()
+    course.end_time = datetime.now()
 
     db.session.commit()
