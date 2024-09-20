@@ -10,14 +10,23 @@ def pick_random_course():
 
 
 def assign_course_to_user(user_id):
-    course = pick_random_course()
 
-    course.user_id = user_id
-    course.start_time = datetime.now()
+    if check_number_of_courses_for_user(user_id) < 10:
+        course = pick_random_course()
 
-    db.session.commit()
+        course.user_id = user_id
+        course.start_time = datetime.now()
 
-    return course
+        db.session.commit()
+
+        return course
+    return None
+
+
+def check_number_of_courses_for_user(user_id):
+    query = text("SELECT COUNT(id) FROM courses WHERE user_id = :user_id")
+    results = db.session.execute(query, {"user_id": user_id})
+    return results.fetchone()[0]
 
 
 def gather_course_information(course):
@@ -47,7 +56,9 @@ def gather_course_information(course):
 def select_course_for_user(user_id):
     course = assign_course_to_user(user_id)
 
-    return gather_course_information(course)
+    if course:
+        return gather_course_information(course)
+    return None
 
 
 def add_user_choice_to_course(course_id, choice):

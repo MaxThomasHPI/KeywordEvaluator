@@ -1,4 +1,4 @@
-import {createEvaluationSite} from "../buildUI/buildUIEvaluation.js";
+import {buildFinished, createEvaluationSite} from "../buildUI/buildUIEvaluation.js";
 
 export function getNextCourse() {
     const url = "/get_next_course";
@@ -11,7 +11,11 @@ export function getNextCourse() {
             return response.json();
         })
         .then(data => {
-            createEvaluationSite(data);
+            if(data){
+                createEvaluationSite(data);
+            } else {
+                buildFinished();
+            }
         })
         .catch(error => {
             console.error('Error', error);

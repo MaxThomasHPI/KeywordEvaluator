@@ -19,7 +19,6 @@ export function createEvaluationSite(courseData){
     mainContainer.appendChild(buildTitle(courseData));
     mainContainer.appendChild(buildDescriptionText(courseData));
     mainContainer.appendChild(buildKeywordLists(courseData));
-
 }
 
 function buildTitle(courseData){
@@ -106,4 +105,28 @@ function buildKeywordList(keywords, tag) {
 function set_choice_and_move_on(tag) {
     set_choice(course_id, tag);
     getNextCourse();
+}
+
+export function buildFinished() {
+    const container = document.getElementById('main_container');
+
+    clearContainer(container);
+
+    const headlineContainer = document.createElement('div');
+    headlineContainer.className = 'ml-row';
+    const headline = document.createElement('p');
+    headline.textContent = '<h2>End of survey</h2>';
+    headlineContainer.appendChild(headline);
+
+    container.appendChild(headlineContainer);
+
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'ml-row';
+    const text = document.createElement('p');
+    text.innerHTML = 'Thank you for participating in the keyword evaluation! <br>' +
+        'You can now close the browser. Your answers have been saved.'
+    textContainer.appendChild(text);
+
+    container.appendChild(textContainer);
 }
