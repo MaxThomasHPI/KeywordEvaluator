@@ -1,7 +1,7 @@
 import os
 from .. import db, create_app
 from .models import Course, KeywordGen, KeywordMan, KeywordGenCourse, KeywordManCourse
-from ..helper_functions import helper
+import pandas as pd
 
 app = create_app()
 
@@ -10,26 +10,22 @@ with app.app_context():
     db.create_all()
 
     path = os.path.dirname(os.path.realpath(__file__))
-    path = os.path.join(path, "courses_data", "manuel_vs_generated_including_descriptions_fixed.csv")
+    path = os.path.join(path, "courses_data", "manuel_vs_generated_including_descriptions_fixed_en.csv")
     path = os.path.abspath(path)
 
-    with open(path, 'r', encoding='utf-8') as f:
-        data = f.read()
+    data = pd.read_csv(path, encoding='utf-8')
 
-    lines = data.split('\n')[1:]
+    for i, row in data.iterrows():
 
-    for line in lines:
-        line = line.split(',')
-
-        title = line[4]
-        description = helper.prepare_descriptions_for_database(line)
+        title = row["title_en"]
+        description = row["description_en"]
 
         course = Course(title=title, description=description)
 
         db.session.add(course)
         db.session.commit()
 
-        man_keywords = list(set(line[5].split(';')))
+        man_keywords = list(set(row["manual_keywords"].split(';')))
 
         for k in man_keywords:
             existing_keyword = KeywordMan.query.filter_by(keyword=k).first()
@@ -38,7 +34,8 @@ with app.app_context():
                 db.session.add(KeywordMan(keyword=k))
                 db.session.commit()
 
-        gen_keywords = list(set(line[6].split(';')))
+        gen_keywords = list(set(row["generated_keywords"].split(';')))
+
         for k in gen_keywords:
             existing_keyword = KeywordGen.query.filter_by(keyword=k).first()
 

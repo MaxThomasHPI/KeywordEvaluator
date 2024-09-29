@@ -1,7 +1,7 @@
 from app_data.helper_functions.helper import prepare_descriptions_for_database
 
 
-path = "../app_data/database/courses_data/manuel_vs_generated_including_descriptions_fixed.csv"
+path = "../app_data/database/courses_data/manuel_vs_generated_including_descriptions_fixed_en.csv"
 
 with open(path, 'r', encoding='utf-8') as f:
     data = f.read()

@@ -34,6 +34,9 @@ def gather_course_information(course):
     title = course.title
     description = course.description
 
+    if description == 'NaN':
+        description = None
+
     statement = text("SELECT keyword FROM keywords_gen WHERE id IN "  # sql statement needs to wraped into a text
                      "(SELECT keyword_id FROM keywords_gen_courses WHERE course_id = :course_id);")
     result = db.session.execute(statement, {'course_id': course_id})
