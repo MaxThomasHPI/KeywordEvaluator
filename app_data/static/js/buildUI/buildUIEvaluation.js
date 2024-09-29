@@ -115,7 +115,7 @@ export function buildFinished() {
     const headlineContainer = document.createElement('div');
     headlineContainer.className = 'ml-row';
     const headline = document.createElement('p');
-    headline.textContent = '<h2>End of survey</h2>';
+    headline.innerHTML = '<h2>End of survey</h2>';
     headlineContainer.appendChild(headline);
 
     container.appendChild(headlineContainer);
