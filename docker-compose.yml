@@ -2,11 +2,9 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "80:80"
     environment:
       - DATABASE_URL=postgresql://postgres:p0Stpw14@db:5432/evaluation_db
-      - FLASK_APP=app.py
-      - FLASK_ENV=development
     depends_on:
       - db
 
