@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from dotenv import load_dotenv  # TODO: This needs to be remove for docker
 import os
 
-load_dotenv()  # TODO: This needs to be remove for docker
 
 db = SQLAlchemy()
 migrate = Migrate()

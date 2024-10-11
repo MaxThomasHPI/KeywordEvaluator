@@ -7,7 +7,6 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install curl -y \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python3 get-pip.py \
-    && apt-get install build-essential
 
 RUN apt-get install -y nginx
 COPY ./nginx.conf etc/nginx/nginx.conf
@@ -23,8 +22,6 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 80
-
-#ENV FLASK_APP=app.py
 
 CMD service nginx start && gunicorn --bind 0.0.0.0:5000 "app_data:create_app()"
 
