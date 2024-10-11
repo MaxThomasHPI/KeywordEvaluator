@@ -65,13 +65,6 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ````
 
-Install Docker compose plugin
-
-````
-# from https://docs.docker.com/compose/install/linux/#install-using-the-repository
-sudo apt-get update
-sudo apt-get install docker-compose-plugin
-````
 
 ## Build the application
 
