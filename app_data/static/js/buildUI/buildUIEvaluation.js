@@ -67,6 +67,7 @@ function buildKeywordLists(courseData) {
     }
 
     container.appendChild(buildKeywordList(courseData[tags[left_index]], tags[left_index]));
+    container.appendChild(buildUndecided());
     container.appendChild(buildKeywordList(courseData[tags[right_index]], tags[right_index]));
 
     return container;
@@ -74,16 +75,18 @@ function buildKeywordLists(courseData) {
 
 function buildKeywordList(keywords, tag) {
     const container = document.createElement('div');
-    container.className = "col-6";
+    container.className = "col-4";
 
     const keywordsList = document.createElement('ol');
     container.appendChild(keywordsList);
 
-    keywords.forEach(keyword => {
-        const element = document.createElement('li');
-        element.textContent = keyword;
-        keywordsList.appendChild(element);
-    });
+    if(keywords){
+        keywords.forEach(keyword => {
+            const element = document.createElement('li');
+            element.textContent = keyword;
+            keywordsList.appendChild(element);
+        });
+    }
 
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'text-center';
@@ -92,6 +95,29 @@ function buildKeywordList(keywords, tag) {
     const choiceButton = document.createElement('button');
     choiceButton.className = 'btn-lg';
     choiceButton.textContent = "This list is better!";
+    choiceButton.id = tag;
+    choiceButton.onclick = function () {
+        set_choice_and_move_on(tag);
+    }
+
+    buttonContainer.appendChild(choiceButton);
+
+    return container;
+}
+
+function buildUndecided() {
+    const tag = 'undecided';
+
+    const container = document.createElement('div');
+    container.className = 'col-4';
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'text-center';
+    container.appendChild(buttonContainer);
+
+    const choiceButton = document.createElement('button');
+    choiceButton.className = 'btn-lg';
+    choiceButton.textContent = "Undecided. Both are equally good.";
     choiceButton.id = tag;
     choiceButton.onclick = function () {
         set_choice_and_move_on(tag);
