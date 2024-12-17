@@ -81,6 +81,8 @@ function buildKeywordList(keywords, tag) {
     container.appendChild(keywordsList);
 
     if(keywords){
+        keywords = selectRandomKeywords(keywords);
+
         keywords.forEach(keyword => {
             const element = document.createElement('li');
             element.textContent = keyword;
@@ -103,6 +105,24 @@ function buildKeywordList(keywords, tag) {
     buttonContainer.appendChild(choiceButton);
 
     return container;
+}
+
+function selectRandomKeywords(keywords) {
+    if(keywords.length < 6){
+        return keywords;
+    }
+
+    // Solution created with ChatGPT (2024-12-17T19:50) and slightly modified.
+    const numberOfKeywords = Math.floor(Math.random() * 3) + 4;
+
+    // Fisher-Yates Shuffle to partially shuffle the array
+    for (let i = keywords.length - 1; i >= keywords.length - numberOfKeywords; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [keywords[i], keywords[j]] = [keywords[j], keywords[i]];
+    }
+
+    // Take the first 'numberOfKeywords' items
+    return keywords.slice(-numberOfKeywords);
 }
 
 function buildUndecided() {
